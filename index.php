@@ -65,6 +65,7 @@ $endDate = $_GET['end'];
                 borderWidth: 0
             },
             series: [{
+                showInLegend: false,
                 name: 'Sales Report',
                 data: [<?php echo implode(',',$Graphs->setGraph($startDate,$endDate));?>]
             }]
