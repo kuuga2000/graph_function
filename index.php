@@ -24,6 +24,14 @@ $Graphs = New Graphs;
 <?php
 $startDate = $_GET['start'];
 $endDate = $_GET['end'];
+$Graph = $Graphs->setGraph($startDate,$endDate);
+$date = array_keys($Graph);
+$ct = array();
+foreach($date as $date_cn){
+    $ct[]=date('d M',strtotime($date_cn));
+}
+$caterogies = '"'.(implode('","',$ct)).'"';
+$graph = implode(',',$Graph);
 ?>
 <div id="graph" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 <script>
@@ -41,8 +49,7 @@ $endDate = $_GET['end'];
                 x: -20
             },
             xAxis: {
-                categories: ['1 Jan', '2 Jan', '3 Jan', '4 Jan', '5 Jan', '6 Jan',
-                    '7 Jan', '8 Jan', '9 Jan', '10 Jan', '11 Jan', '12 Jan']
+                categories: [<?php echo $caterogies;?>]
             },
             yAxis: {
                 title: {
@@ -67,7 +74,7 @@ $endDate = $_GET['end'];
             series: [{
                 showInLegend: false,
                 name: 'Sales Report',
-                data: [<?php echo implode(',',$Graphs->setGraph($startDate,$endDate));?>]
+                data: [<?php echo $graph;?>]
             }]
         });
     });
